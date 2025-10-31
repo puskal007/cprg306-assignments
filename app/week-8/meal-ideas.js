@@ -18,16 +18,16 @@ const fetchMealIdeas = async (ingredient) => {
 export default function MealIdeas({ ingredient }) {
   const [meals, setMeals] = useState([]);
 
-  const loadMealIdeas = async () => {
-    if (ingredient) {
-      const mealData = await fetchMealIdeas(ingredient);
-      setMeals(mealData);
-    } else {
-      setMeals([]);
-    }
-  };
-
   useEffect(() => {
+    const loadMealIdeas = async () => {
+      if (ingredient) {
+        const mealData = await fetchMealIdeas(ingredient);
+        setMeals(mealData);
+      } else {
+        setMeals([]);
+      }
+    };
+
     loadMealIdeas();
   }, [ingredient]);
 
@@ -37,10 +37,10 @@ export default function MealIdeas({ ingredient }) {
       {!ingredient ? (
         <p className="text-gray-600">Select an item to see meal ideas</p>
       ) : meals.length === 0 ? (
-        <p className="text-gray-600">No meal ideas found for "{ingredient}"</p>
+        <p className="text-gray-600">No meal ideas found for {ingredient}</p>
       ) : (
         <div>
-          <p className="text-gray-700 mb-4">Meal ideas for "{ingredient}":</p>
+          <p className="text-gray-700 mb-4">Meal ideas for {ingredient}:</p>
           <ul className="space-y-2 max-h-96 overflow-y-auto">
             {meals.map((meal) => (
               <li key={meal.idMeal} className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50">

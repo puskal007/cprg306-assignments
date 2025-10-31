@@ -17,7 +17,8 @@ export default function Page() {
     // Clean up the item name by removing size, units, and emojis
     const cleanedName = itemName
       .split(',')[0]  // Remove everything after comma (size/units)
-      .replace(/[^\w\s]/gi, '')  // Remove all non-alphanumeric characters including emojis
+      .replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '')  // Remove emojis
+      .replace(/[^\w\s]/gi, '')  // Remove any remaining special characters
       .trim()  // Remove extra spaces
       .toLowerCase();  // Convert to lowercase for better API matching
     
