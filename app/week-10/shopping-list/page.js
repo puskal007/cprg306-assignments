@@ -4,26 +4,25 @@ import NewItem from './new-item';
 import ItemList from './item-list';
 import MealIdeas from './meal-ideas';
 import { useAuth } from '../_utils/auth-context';
-import { firebaseSignOut } from '../_utils/firebase';
 import { getItems, addItem, deleteItem } from '../_services/shopping-list-service';
 
 export default function Page() {
-  const { user } = useAuth();
+  const { user, firebaseSignOut } = useAuth();
   const [items, setItems] = useState([]);
   const [selectedItemName, setSelectedItemName] = useState("");
   const [loading, setLoading] = useState(true);
 
   // Load items from Firestore
-  const loadItems = async () => {
-    if (user) {
-      setLoading(true);
-      const userItems = await getItems(user.uid);
-      setItems(userItems);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const loadItems = async () => {
+      if (user) {
+        setLoading(true);
+        const userItems = await getItems(user.uid);
+        setItems(userItems);
+        setLoading(false);
+      }
+    };
+
     loadItems();
   }, [user]);
 
@@ -64,7 +63,7 @@ export default function Page() {
     }
   };
 
-  // Protect the page
+  // Protect the page - don't render if not authenticated
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
