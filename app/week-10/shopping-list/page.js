@@ -1,4 +1,4 @@
-﻿\"use client\";
+"use client";
 import { useState, useEffect } from 'react';
 import NewItem from './new-item';
 import ItemList from './item-list';
@@ -10,7 +10,7 @@ import { getItems, addItem, deleteItem } from '../_services/shopping-list-servic
 export default function Page() {
   const { user } = useAuth();
   const [items, setItems] = useState([]);
-  const [selectedItemName, setSelectedItemName] = useState(\"\");
+  const [selectedItemName, setSelectedItemName] = useState("");
   const [loading, setLoading] = useState(true);
 
   // Load items from Firestore
@@ -67,11 +67,11 @@ export default function Page() {
   // Protect the page
   if (!user) {
     return (
-      <div className=\"min-h-screen bg-gray-100 flex items-center justify-center\">
-        <div className=\"text-center\">
-          <h1 className=\"text-2xl font-bold text-gray-800 mb-4\">Access Denied</h1>
-          <p className=\"text-gray-600 mb-4\">Please sign in to access the shopping list</p>
-          <a href=\"/week-10\" className=\"text-blue-500 hover:text-blue-700 underline\">
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Access Denied</h1>
+          <p className="text-gray-600 mb-4">Please sign in to access the shopping list</p>
+          <a href="/week-10" className="text-blue-500 hover:text-blue-700 underline">
             Go to Login Page
           </a>
         </div>
@@ -81,29 +81,29 @@ export default function Page() {
 
   if (loading) {
     return (
-      <div className=\"min-h-screen bg-slate-100 flex items-center justify-center\">
-        <div className=\"text-xl\">Loading your shopping list...</div>
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <div className="text-xl">Loading your shopping list...</div>
       </div>
     );
   }
 
   return (
-    <main className=\"min-h-screen bg-slate-100 p-8\">
-      <div className=\"max-w-6xl mx-auto\">
-        <div className=\"flex justify-between items-center mb-8\">
-          <h1 className=\"text-3xl font-bold text-slate-800\">Shopping List</h1>
-          <div className=\"flex items-center gap-4\">
-            <span className=\"text-gray-600\">Welcome, {user.displayName} ({user.email})</span>
+    <main className="min-h-screen bg-slate-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-800">Shopping List</h1>
+          <div className="flex items-center gap-4">
+            <span className="text-gray-600">Welcome, {user.displayName} ({user.email})</span>
             <button
               onClick={handleSignOut}
-              className=\"bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors\"
+              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
             >
               Sign Out
             </button>
           </div>
         </div>
-        <div className=\"flex flex-col lg:flex-row gap-8\">
-          <div className=\"lg:w-2/3 space-y-6\">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-2/3 space-y-6">
             <NewItem onAddItem={handleAddItem} />
             <ItemList 
               items={items} 
@@ -111,7 +111,7 @@ export default function Page() {
               onDeleteItem={handleDeleteItem} 
             />
           </div>
-          <div className=\"lg:w-1/3\">
+          <div className="lg:w-1/3">
             <MealIdeas ingredient={selectedItemName} />
           </div>
         </div>
