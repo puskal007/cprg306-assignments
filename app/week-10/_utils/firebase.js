@@ -1,16 +1,21 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { initializeApp, getApps } from "firebase/app";
+import { getAuth, GithubAuthProvider, signOut } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// TEMPORARY HARDCODE - Replace with environment variables later
 const firebaseConfig = {
-  apiKey: "AIzaSyBjd7uQJc5wCbV6kYM5ChFgtoZfMKNDX2k",
-  authDomain: "cprg-306-assignment-9d6ad.firebaseapp.com",
-  projectId: "cprg-306-assignment-9d6ad",
-  storageBucket: "cprg-306-assignment-9d6ad.firebasestorage.app",
-  messagingSenderId: "205421848144",
-  appId: "1:205421848144:web:500f96b7a74d9cef7b1355",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, 
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export const githubProvider = new GithubAuthProvider();
+
+export const firebaseSignOut = () => signOut(auth);
